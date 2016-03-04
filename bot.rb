@@ -6,7 +6,7 @@ class TimeBot < SlackRubyBot::Bot
   command 'what time' do |client, data, match|
     members = TimeBot.channel_members(client, data.channel)
     users_times = members.map { |id| client.web_client.users_info(user: id)[:user] }
-      .select { |user| !user[:is_bot] }
+      .select { |user| !user[:is_bot] && !user[:deleted] && user[:tz_offset] != nil }
       .map { |user| TimeBot.user_time(client, user) }
     client.web_client.chat_postMessage(channel: data.channel,
                                        text: "#{users_times.join("\n")}",
