@@ -10,3 +10,7 @@ A slackbot that always has the time for you. If you ask the bot `what time is it
 ```
 SLACK_API_TOKEN = "X-XX-XXXX" bundle exec bot.rb
 ```
+
+# License
+
+MIT
