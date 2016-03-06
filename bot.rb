@@ -22,9 +22,10 @@ class TimeBot < SlackRubyBot::Bot
   end
   def TimeBot.user_time(client, user)
     offset = user[:tz_offset] / 60 / 60
+    tz_label = user[:tz].split("/").last.gsub "_", " "
     timezone = ActiveSupport::TimeZone[offset]
     time = DateTime.now.in_time_zone(timezone)
-    formatted_time = time.strftime "%I:%M %p %Z"
+    formatted_time = time.strftime "%I:%M %p #{tz_label}"
     emoji = TimeBot.clock_emoji(time)
     return "@#{user[:name]} #{emoji} `#{formatted_time}`"
   end
