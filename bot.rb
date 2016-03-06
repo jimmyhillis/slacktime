@@ -3,7 +3,7 @@ require 'json'
 require 'slack-ruby-bot'
 
 class TimeBot < SlackRubyBot::Bot
-  command 'what time' do |client, data, match|
+  command 'time' do |client, data, match|
     members = TimeBot.channel_members(client, data.channel)
     users_times = members.map { |id| client.web_client.users_info(user: id)[:user] }
       .select { |user| !user[:is_bot] && !user[:deleted] && user[:tz_offset] != nil }
